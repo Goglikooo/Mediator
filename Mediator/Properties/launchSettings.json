@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Mediator": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
