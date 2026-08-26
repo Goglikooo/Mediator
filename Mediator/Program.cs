@@ -1,6 +1,9 @@
-﻿using System;
+﻿#define SOLUTION
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 
 public sealed class Runway
 {
@@ -121,6 +124,9 @@ public static class Program
         // Add a fourth aircraft.
         var kl555 = new Aircraft("KL555", runway);
 
+        // INSTRUCTOR SOLUTION:
+        // The new aircraft must be added to every old aircraft's list,
+        // and every old aircraft must be added to the new aircraft's list.
         lh101.AddNearbyAircraft(kl555);
         ba204.AddNearbyAircraft(kl555);
         af330.AddNearbyAircraft(kl555);
@@ -153,16 +159,6 @@ public static class Program
         Console.WriteLine();
         ba204.RequestLanding();
 
-        // ============================================================
-        // TASK 2: BUILD A MEDIATOR
-        // ============================================================
-        // In this phase, aircraft no longer know about nearby aircraft.
-        // They communicate through a central ControlTower.
-        //
-        // Your task is to implement the ControlTower methods below.
-        // The complete instructor solution is hidden in #if SOLUTION.
-        // ============================================================
-
         Console.WriteLine();
         Console.WriteLine("==============================");
         Console.WriteLine("TASK 2: MEDIATOR VERSION");
@@ -184,10 +180,6 @@ public static class Program
         tower.ClearRunway();
     }
 }
-
-// ================================================================
-// TASK 2 SUPPORT CODE: MEDIATOR VERSION
-// ================================================================
 
 public interface IAirTrafficMediator
 {
@@ -234,32 +226,31 @@ public sealed class ControlTower : IAirTrafficMediator
 
     public void RequestLanding(MediatorAircraft aircraft)
     {
-        // ============================================================
-        // STUDENT TASK: YOUR CODE GOES HERE
-        // ============================================================
-        // Implement the tower's landing coordination:
-        // 1. Print that the aircraft requests permission to land.
-        // 2. If the runway is free:
-        //      - store the aircraft in runwayOccupant;
-        //      - reserve the runway using its CallSign;
-        //      - tell it: "Land now."
-        // 3. Otherwise:
-        //      - add it to landingQueue with Enqueue;
-        //      - tell it: "Hold and wait."
-        // ============================================================
+        Console.WriteLine(
+            $"{aircraft.CallSign} requests permission to land.");
 
+        if (runway.IsFree)
+        {
+            runwayOccupant = aircraft;
+            runway.Reserve(aircraft.CallSign);
+            aircraft.ReceiveInstruction("Land now.");
+        }
+        else
+        {
+            landingQueue.Enqueue(aircraft);
+            aircraft.ReceiveInstruction("Hold and wait.");
+        }
     }
 
     public void ClearRunway()
     {
-        // ============================================================
-        // STUDENT TASK: YOUR CODE GOES HERE
-        // ============================================================
-        // Implement runway clearing:
-        // 1. Clear the runway.
-        // 2. Set runwayOccupant to null.
-        // 3. Try to remove the next aircraft from landingQueue.
-        // 4. If one exists, call RequestLanding(nextAircraft).
-        // ============================================================
+        runway.Clear();
+        runwayOccupant = null;
+
+        if (landingQueue.TryDequeue(out var nextAircraft))
+        {
+            RequestLanding(nextAircraft);
+        }
+
     }
 }
