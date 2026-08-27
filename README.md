@@ -1,125 +1,138 @@
-Mediator Workshop
+# Mediator Workshop
 
-Small C# console project for the Mediator design-pattern workshop.
+A small C# console application for the Mediator design-pattern workshop.
 
-The example uses aircraft, a runway, and a control tower. You will first work with aircraft that communicate directly, and then build the control tower as a Mediator.
+You will first work with aircraft that communicate directly. Then you will build a control tower that coordinates them as a Mediator.
 
-Requirements
+## Requirements
 
-Install the .NET SDK on your computer:
+Install the **.NET SDK**:
 
-https://dotnet.microsoft.com/download
+<https://dotnet.microsoft.com/download>
 
 Check that it is installed:
 
+```powershell
 dotnet --version
+```
 
-Clone the repository
+## Clone the repository
 
 Open PowerShell, Terminal, or Git Bash and run:
 
-git clone <REPOSITORY-URL>
+```bash
+git clone https://github.com/Goglikooo/Mediator.git
 cd Mediator
+```
 
-Replace <REPOSITORY-URL> with the HTTPS URL of this GitHub repository. You can copy it from the green Code button on GitHub.
+## Run the application
 
-For example:
+The C# project is inside the `Mediator` folder within the repository. From the repository root, run:
 
-git clone https://github.com/your-name/Mediator.git
+```bash
+dotnet run --project .\Mediator\Mediator.csproj
+```
+
+Alternatively, enter the project folder first:
+
+```bash
 cd Mediator
-
-Run the project locally
-
-From the repository folder, run:
-
 dotnet run
+```
 
-The project is a C# console application. The result will appear directly in the terminal.
+The program runs as a console application. Its output appears in the terminal.
 
-If you use Visual Studio instead:
+### Run with Visual Studio
 
-Open the repository folder or the solution file.
+1. Open the cloned repository in Visual Studio.
+2. Open `Mediator.slnx` or the project folder.
+3. Open `Mediator/Program.cs` if needed.
+4. Start the application with the green **Start** button or press `Ctrl + F5`.
 
-Open Program.cs.
+## Branches
 
-Run the project with the green Start button or press Ctrl + F5.
+The repository contains three branches. The spelling and capitalisation matter:
 
-Workshop branches
+| Branch | Use it for |
+|---|---|
+| [`main`](https://github.com/Goglikooo/Mediator/tree/main) | First task: aircraft communicate without a Mediator. |
+| [`SecondTask`](https://github.com/Goglikooo/Mediator/tree/SecondTask) | Second task: build the `ControlTower` Mediator. |
+| [`Solution`](https://github.com/Goglikooo/Mediator/tree/Solution) | Complete reference solution. Use it after attempting the tasks. |
 
-This repository contains three branches:
+See the available branches with:
 
-Branch
-
-Purpose
-
-main
-
-Starting point: aircraft communicate directly without a Mediator. Complete the first exercise here.
-
-secondTask
-
-Second exercise: build the ControlTower Mediator.
-
-solution
-
-Complete reference implementation for checking your work.
-
-Switch to a branch
-
-First, see all available local and remote branches:
-
+```bash
 git branch -a
+```
 
 Switch to the first task:
 
+```bash
 git switch main
 git pull origin main
+```
 
 Switch to the Mediator task:
 
-git switch secondTask
-git pull origin secondTask
+```bash
+git switch SecondTask
+git pull origin SecondTask
+```
 
-Switch to the complete solution:
+Switch to the reference solution:
 
-git switch solution
-git pull origin solution
+```bash
+git switch Solution
+git pull origin Solution
+```
 
-If your Git version does not support git switch, use git checkout instead:
+After switching branches, run the application again:
 
-git checkout secondTask
+```bash
+dotnet run --project .\Mediator\Mediator.csproj
+```
 
-After changing branches, run the code again:
+## If Git cannot find a branch
 
-dotnet run
+Update your local list of branches:
 
-Important note about the solution
+```bash
+git fetch --all --prune
+```
 
-The solution branch is for checking your work after attempting the exercise. Try to solve the task first, then compare your code with the solution.
+Then try again. If necessary, create a local branch that tracks the remote branch:
 
-If you receive a project or branch error
+```bash
+git switch --track origin/SecondTask
+```
 
-Make sure you are inside the repository folder:
+For the solution branch:
 
-pwd
+```bash
+git switch --track origin/Solution
+```
 
-On PowerShell, you can also run:
+## If Git says you have local changes
 
-Get-Location
+Commit or temporarily save your changes before switching branches. To temporarily save them:
 
-You should see the folder containing the project files, including Program.cs and the .csproj file.
+```bash
+git stash
+```
 
-If the project was cloned but the branch list is not up to date, run:
+Switch branches, then restore the changes later with:
 
-git fetch --all
+```bash
+git stash pop
+```
 
-Then try switching branches again.
+## Quick start
 
-Quick start
-
-git clone <REPOSITORY-URL>
+```bash
+git clone https://github.com/Goglikooo/Mediator.git
 cd Mediator
 git switch main
-dotnet run
+dotnet run --project .\Mediator\Mediator.csproj
+```
 
-Start with main, complete the first task, then switch to secondTask. Use solution only to compare your implementation.
+Start with `main`, complete the first task, then switch to `SecondTask`. Use `Solution` only to compare your work after trying the exercises yourself.
